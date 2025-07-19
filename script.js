@@ -29,6 +29,12 @@ function initialise () {
     for (category in categoryWiseBudget) {
         categorySelect.innerHTML += `<option value='${category}'>${category}</option>`
     }
+    function displayFinanceSummary () {
+        const balance = income - expense
+        const positive = balance > 0
+        const className = positive ? 'positive' : 'negative'
+        balanceSection.innerHTML = `<b class="${className}">Balance: $${balance}`
+    }
     incomeForm.addEventListener('submit', (event) => {
         event.preventDefault()
         const value = Number(incomeInput.value)
@@ -40,14 +46,17 @@ function initialise () {
             <span class='amount positive'>$${value}</span>
         </li>`
 
-        const balance = income - expense
-        balanceSection.innerHTML = `<b>Balance: $${balance}`
+        displayFinanceSummary()
     })
     expenseButton.addEventListener('click', () => {
         const value = Number(expenseInput.value)
         expense += value
         transactionsList.innerHTML = `<li>
-            <span class='category'>
+            <span class='category'>${categorySelect.value}</span>
+            <span class='description'>${descriptionInput.value}</span>
+            <span class='amount'>$${value}</span>
         </li>`
+
+        displayFinanceSummary()
     })
 }
