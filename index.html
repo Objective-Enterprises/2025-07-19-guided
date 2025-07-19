@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Finance Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body onload="initialise();">
+    <h1>Finance Tracker</h1>
+    <div id="finance-form">
+
+        <div class="container">
+            <!-- Add an Income Section -->
+            <div class="col">
+                <h2>Add an Income</h2>
+                <label for="income">Income :</label>
+                <form id="add-income-form">
+                    <input type="number" id="income" placeholder="Income Amount">
+                    <input type="submit" value="Add">
+                </form>
+                
+
+            </div>
+            <!-- Add an Expense Section -->
+            <div class="col">
+                <h2>Add an Expense</h2>
+                <select id="category">
+                </select>
+                <input type="text" id="description" placeholder="Description">
+                <input type="number" id="amount" placeholder="Amount">
+                <button id="add-transaction-btn">Add</button>
+            </div>
+        </div>
+
+        <!-- Transaction List -->
+        <div class="col">
+            <h2>Transactions</h2>
+            <ul id="transactions"></ul>
+        </div>
+
+        <!-- Finance Summary Section -->
+        <div class="col">
+            <h2>Finance Summary</h2>
+            <div id="total-income"></div>
+            <div id="budget-summary"></div>
+            <div id="balance"></div>
+        </div>
+
+    </div>
+</body>
+
+</html>
