@@ -40,11 +40,20 @@ function initialise () {
         categorySelect.innerHTML += `<option value='${category}'>${category}</option>`
         categoryWiseExpense[category] = 0
     }
+    function displayDollars (number) {
+        const options = {
+            style: 'decimal', // Ensures standard decimal formatting, not currency
+            minimumFractionDigits: 2, // Ensures at least 2 decimal places
+            maximumFractionDigits: 2  // Ensures at most 2 decimal places (for rounding)
+        };
+        const string = number.toLocaleString(undefined, options)
+        return `$${string}`
+    }
     function displayFinanceSummary () {
         const balance = income - expense
         const positive = balance > 0
         const className = positive ? 'positive' : 'negative'
-        balanceSection.innerHTML = `<b class="${className}">Balance: $${balance.toFixed(2)}`
+        balanceSection.innerHTML = `<b class="${className}">Balance: ${displayDollars(balance)}`
 
         budgetSummary.innerHTML = ''
         for (const category in categoryWiseBudget) {
@@ -57,15 +66,15 @@ function initialise () {
                 <li><b>${category}</b></li>
                 <li>
                     <span>Budget:</span>
-                    <span>$${budget.toFixed(2)}</span>
+                    <span>${displayDollars(budget)}</span>
                 </li>
                 <li>
                     <span>Expense:</span>
-                    <span>$${expense.toFixed(2)}</span>
+                    <span>${displayDollars(expense)}</span>
                 </li>
                 <li class="${className}">
                     <span>Balance:</span>
-                    <span>$${balance.toFixed(2)}</span>
+                    <span>${displayDollars(balance)}</span>
                 </li>
             </ul>`
         }
@@ -74,12 +83,13 @@ function initialise () {
         event.preventDefault()
         const value = Number(incomeInput.value)
         income += value
-        totalIncome.innerHTML = `<b>Total Income: $${income.toFixed(2)}</b>`
+        totalIncome.innerHTML = `<b>Total Income: ${displayDollars(income)}</b>`
         transactionsList.innerHTML += `<li>
             <span class='category'>Income</span>
             <span class='description'></span>
-            <span class='amount positive'>$${value.toFixed(2)}</span>
+            <span class='amount positive'>${displayDollars(value)}</span>
         </li>`
+        incomeInput.value = ''
 
         displayFinanceSummary()
     })
@@ -90,8 +100,10 @@ function initialise () {
         transactionsList.innerHTML += `<li>
             <span class='category'>${categorySelect.value}</span>
             <span class='description'>${descriptionInput.value}</span>
-            <span class='amount'>$${value.toFixed(2)}</span>
+            <span class='amount'>${displayDollars(value)}</span>
         </li>`
+        expenseInput.value = ''
+        descriptionInput.value = ''
 
         displayFinanceSummary()
     })
