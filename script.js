@@ -44,7 +44,7 @@ function initialise () {
         const balance = income - expense
         const positive = balance > 0
         const className = positive ? 'positive' : 'negative'
-        balanceSection.innerHTML = `<b class="${className}">Balance: $${balance}`
+        balanceSection.innerHTML = `<b class="${className}">Balance: $${balance.toFixed(2)}`
 
         budgetSummary.innerHTML = ''
         for (const category in categoryWiseBudget) {
@@ -57,15 +57,15 @@ function initialise () {
                 <li><b>${category}</b></li>
                 <li>
                     <span>Budget:</span>
-                    <span>$${budget}</span>
+                    <span>$${budget.toFixed(2)}</span>
                 </li>
                 <li>
                     <span>Expense:</span>
-                    <span>$${expense}</span>
+                    <span>$${expense.toFixed(2)}</span>
                 </li>
                 <li class="${className}">
                     <span>Balance:</span>
-                    <span>$${balance}</span>
+                    <span>$${balance.toFixed(2)}</span>
                 </li>
             </ul>`
         }
@@ -74,11 +74,11 @@ function initialise () {
         event.preventDefault()
         const value = Number(incomeInput.value)
         income += value
-        totalIncome.innerHTML = `<b>Total Income: $${income}</b>`
+        totalIncome.innerHTML = `<b>Total Income: $${income.toFixed(2)}</b>`
         transactionsList.innerHTML += `<li>
             <span class='category'>Income</span>
             <span class='description'></span>
-            <span class='amount positive'>$${value}</span>
+            <span class='amount positive'>$${value.toFixed(2)}</span>
         </li>`
 
         displayFinanceSummary()
@@ -90,7 +90,7 @@ function initialise () {
         transactionsList.innerHTML += `<li>
             <span class='category'>${categorySelect.value}</span>
             <span class='description'>${descriptionInput.value}</span>
-            <span class='amount'>$${value}</span>
+            <span class='amount'>$${value.toFixed(2)}</span>
         </li>`
 
         displayFinanceSummary()
