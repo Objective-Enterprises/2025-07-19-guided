@@ -20,10 +20,20 @@ function initialise () {
     const incomeForm = document.getElementById('add-income-form')
     const incomeInput = document.getElementById('income')
     const totalIncome = document.getElementById('total-income')
+    const transactionsList = document.getElementById('transactions')
+    const balanceSection = document.getElementById('balance')
     incomeForm.addEventListener('submit', (event) => {
         event.preventDefault()
         const value = Number(incomeInput.value)
         income += value
         totalIncome.innerHTML = `<b>Total Income: $${income}</b>`
+        transactionsList.innerHTML += `<li>
+            <span class='category'>Income</span>
+            <span class='description'></span>
+            <span class='amount positive'>$${value}</span>
+        </li>`
+
+        const balance = income - expense
+        balanceSection.innerHTML = `<b>Balance: $${balance}`
     })
 }
